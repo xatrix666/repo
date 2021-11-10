@@ -29,7 +29,8 @@ namespace Asteroids.Application
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddTransient<IUserService, UserService>();
-
+            services.AddTransient<INasaService, NasaService>();
+            
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();

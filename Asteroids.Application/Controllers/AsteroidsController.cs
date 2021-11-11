@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace Asteroids.Application.Controllers
 {
@@ -30,9 +31,11 @@ namespace Asteroids.Application.Controllers
         {
             var planetRequestModel = _mapper.Map<PlanetRequestModel>(request);
 
-            var a = _nasaService.GetPlanetsInfo(planetRequestModel, _appSettings.NasaServiceUrl);
+            var planetResponseListModel = _nasaService.GetPlanetsInfo(planetRequestModel, _appSettings.NasaServiceUrl);
 
-            return Ok(request);
+            var planetResponseListDto = _mapper.Map<List<PlanetResponseDto>>(planetResponseListModel);
+
+            return Ok(planetResponseListDto);
         }
     }
 }

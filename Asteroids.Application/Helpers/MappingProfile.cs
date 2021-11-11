@@ -11,6 +11,7 @@ namespace Asteroids.Application.Helpers
             CreateMap<AuthenticateRequestModel, AuthenticateRequestDto>().ReverseMap();
             CreateMap<AuthenticateResponseModel, AuthenticateResponseDto>().ReverseMap();
             CreateMap<PlanetRequestModel, PlanetRequestDto>().ReverseMap();
+            CreateMap<PlanetResponseModel, PlanetResponseDto>().ReverseMap();            
         }
     }
 }

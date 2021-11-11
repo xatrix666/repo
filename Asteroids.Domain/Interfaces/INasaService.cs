@@ -7,6 +7,6 @@ namespace Asteroids.Domain.Interfaces
 {
     public interface INasaService
     {
-        AuthenticateResponseModel GetPlanetsInfo(PlanetRequestModel planetInfo, string nasaServiceUrl);
+        List<PlanetResponseModel> GetPlanetsInfo(PlanetRequestModel planetInfo, string nasaServiceUrl);
     }
 }

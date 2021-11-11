@@ -1,30 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Asteroids.Domain.Models
 {
-    public class NasaResponseModel
+    public class AsteroidInfoModel
     {
-        public Links links { get; set; }
-        public string Element_count { get; set; }
-        public Near_earth_objects Near_earth_objects { get; set; }
-    }
-
-    public class Links
-    {
-        public string Next { get; set; }
-        public string Prev { get; set; }
-        public string Self { get; set; }
-    }
-
-    public class Near_earth_objects
-    {
-        public Dictionary<string, AsteroidInfo> AsteroidsInfo { get; set; }
-    }
-
-    public class AsteroidInfo
-    {
+        public AsteroidInfoModel()
+        {
+            Close_approach_data = new List<Close_approach_data>();
+        }
         public Links links { get; set; }
         public int Id { get; set; }
         public string Neo_reference_id { get; set; }
@@ -36,6 +22,11 @@ namespace Asteroids.Domain.Models
         public List<Close_approach_data> Close_approach_data { get; set; }
         public bool Is_sentry_object { get; set; }
 
+    }
+
+    public class Links
+    {
+        public string Self { get; set; }
     }
 
     public class Estimated_diameter
@@ -76,7 +67,7 @@ namespace Asteroids.Domain.Models
 
         public DateTime Close_approach_date_full { get; set; }
 
-        public int Epoch_date_close_approach { get; set; }
+        public long Epoch_date_close_approach { get; set; }
 
         public Relative_velocity Relative_velocity { get; set; }
 

@@ -4,6 +4,7 @@ using Asteroids.Domain.Interfaces;
 using Asteroids.Domain.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -12,6 +13,7 @@ namespace Asteroids.Application.Controllers
     [Authorize]
     [ApiController]
     [Route("/api/auth")]
+    [EnableCors("MyPolicy")]
     public class AuthController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -24,10 +26,10 @@ namespace Asteroids.Application.Controllers
             _appSettings = appSettings.Value;
             _mapper = mapper;
         }
-
+        
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Authenticate([FromBody] AuthenticateRequestDto request)
+        public IActionResult Authenticate(AuthenticateRequestDto request)
         {
             var authenticateRequestModel = _mapper.Map<AuthenticateRequestModel>(request);
 

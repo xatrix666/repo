@@ -26,7 +26,7 @@ namespace Asteroids.Domain.Implementations
 
             var token = generateJwtToken(user, secret);
 
-            return new AuthenticateResponseModel() { Login = true, Token = token };
+            return new AuthenticateResponseModel() { Login = model.Username, Token = token };
         }
 
         private string generateJwtToken(UserModel user, string secret)

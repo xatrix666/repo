@@ -6,6 +6,7 @@ namespace Asteroids.Domain.Models
 {
     public class PlanetResponseModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Diameter { get; set; }
         public string Velocity { get; set; }

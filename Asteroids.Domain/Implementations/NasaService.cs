@@ -47,17 +47,24 @@ namespace Asteroids.Domain.Implementations
 
         private List<AsteroidInfoModel> DeserializeToAsteoridsList(string jsonNasa)
         {
-            var jObject = JObject.Parse(jsonNasa);
-            var near_earth_objects = jObject["near_earth_objects"];
-            var AsteroidsData = near_earth_objects.Children().Children().Children();
-            var Asteroidslist = new List<AsteroidInfoModel>();
-            foreach (var asteroid in AsteroidsData)
+            try
             {
-                var asteroidJson = JsonConvert.SerializeObject(asteroid);
-                var asteroidInfo = JsonConvert.DeserializeObject<AsteroidInfoModel>(asteroidJson);
-                Asteroidslist.Add(asteroidInfo);
+                var jObject = JObject.Parse(jsonNasa);
+                var near_earth_objects = jObject["near_earth_objects"];
+                var AsteroidsData = near_earth_objects.Children().Children().Children();
+                var Asteroidslist = new List<AsteroidInfoModel>();
+                foreach (var asteroid in AsteroidsData)
+                {
+                    var asteroidJson = JsonConvert.SerializeObject(asteroid);
+                    var asteroidInfo = JsonConvert.DeserializeObject<AsteroidInfoModel>(asteroidJson);
+                    Asteroidslist.Add(asteroidInfo);
+                }
+                return Asteroidslist;
             }
-            return Asteroidslist;
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         private List<PlanetResponseModel> GeneratePlanetInfoResponse(List<AsteroidInfoModel> asteroidsInfolist)
@@ -70,6 +77,8 @@ namespace Asteroids.Domain.Implementations
 
                 var diameterEstimatedMin = asteroidInfo.Estimated_diameter.Kilometers.estimated_diameter_min;
                 var diameterEstimatedMax = asteroidInfo.Estimated_diameter.Kilometers.estimated_diameter_max;
+
+                planetResponse.Id = asteroidInfo.Id;
 
                 planetResponse.Diameter = diameterEstimatedMin + diameterEstimatedMax / 2;
 
